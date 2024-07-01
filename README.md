@@ -5,7 +5,9 @@ This project demonstrates how to create a Todo application with authentication u
 
 ## Demo
 
-- <https://todo-app-lime-five.vercel.app>
+- Demo Link: <https://todo-app-lime-five.vercel.app>
+- Username: admin
+- Password: password
 
 <img src="https://raw.githubusercontent.com/Aekawan/todo-app/main/screenshot/2.png?raw=true" alt="ToDo" width="300"/>
 
