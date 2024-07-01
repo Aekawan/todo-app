@@ -1,6 +1,23 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { TaskProvider } from '../context/TaskContext';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Task } from "@/types/task";
+
+interface CustomAppProps extends AppProps {
+  initialTasks: Task[];
+}
+
+export default function App({ Component, pageProps }: CustomAppProps) {
+  const Layout = (Component as any).Layout || (({ children }: { children: React.ReactNode }) => <>{children}</>);
+  return (
+    <TaskProvider initialTasks={pageProps.initialTasks || []}>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Layout>
+    </TaskProvider>
+  );
 }
