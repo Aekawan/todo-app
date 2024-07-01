@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TaskIcon from './TaskIcon';
-import dayjs from 'dayjs';
 import { formatDate } from '../utils/date';
 
 const ListMode = ({ onOpenDetail, tasks = [] }: {

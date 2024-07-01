@@ -98,8 +98,12 @@ export const getServerSideProps = async (context: any) => {
 
   try {
     const initialTasks = await getAllTodos(context);
+    const sortedTasks = initialTasks.sort((a: Task, b: Task) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+    
     return {
-      props: { initialTasks },
+      props: { initialTasks: sortedTasks },
     };
   } catch (error) {
     console.error('Failed to fetch tasks:', error);
