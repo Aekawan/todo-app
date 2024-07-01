@@ -3,6 +3,12 @@
 
 This project demonstrates how to create a Todo application with authentication using Next.js, React, and Tailwind CSS. It includes features such as login, fetching todos, creating, updating, and deleting todos.
 
+## Demo
+
+- <https://todo-app-lime-five.vercel.app>
+
+<img src="https://raw.githubusercontent.com/Aekawan/todo-app/main/screenshot/2.png?raw=true" alt="ToDo" width="300"/>
+
 ## Features
 
 - User authentication with JWT
