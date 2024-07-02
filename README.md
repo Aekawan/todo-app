@@ -83,7 +83,7 @@ Request body: { "title": "Update todo", "description": "Update new description",
 
 ## Authentication
 
-Create an account at <https://todo-app-api-ochre.vercel.app/auth/login>.
+Create an account at <https://todo-app-api-ochre.vercel.app/users>.
 
 To create an account using the provided API via curl, you can use the following command. Replace username and password with the actual credentials you want to use.
 

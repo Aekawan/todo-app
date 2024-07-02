@@ -49,6 +49,10 @@ export const TaskProvider = ({ children, initialTasks }: {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [task , setTask] = useState<Task>({ id: '', title: '', description: '', icon: '', date: '', time: '', userId: '' });
 
+  useEffect(() => {
+    setTasks(initialTasks);
+  }, [initialTasks]);
+
   const fetchTasks = async () => {
     try {
       const fetchedTasks = await getAllTodos();

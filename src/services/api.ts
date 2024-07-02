@@ -30,6 +30,11 @@ export const login = async (username: string, password: string) => {
   return response.data;
 };
 
+export const getUserProfile = async () => {
+  const response = await api.get(`/users/profile`);
+  return response.data;
+};
+
 export const getAllTodos = async (context?: any) => {
   let token: string | null = null;
 

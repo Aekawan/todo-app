@@ -1,32 +1,29 @@
-import React from 'react';
+import React, { use } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { login } from '../services/api';
 import nookies from 'nookies';
 import { toast } from 'react-toastify';
+import { useAuth } from '@/hooks/useAuth';
 
 const AuthForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
+  const { goLogin } = useAuth();
 
   const onSubmit = async (data: any) => {
     setLoading(true);
     try {
-      const response = await login(data.username, data.password);
-
-      if (!response.access_token) {
-        toast("Login failed, please try again.")
-        return;
+      const isSuccess = await goLogin(data.username, data.password);
+      if (isSuccess) {
+        toast.success("Login success.")
+        router.push('/todos');
+      } else {
+        toast.error("Login failed, please try again.")
       }
-  
-      nookies.set(null, 'token', response.access_token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: '/',
-      });
-      router.push('/todos');
     } catch (error) {
-      toast("Login failed, please try again.")
+      toast.error("Login failed, please try again.")
       console.error('Login failed', error);
     } finally {
       setLoading(false);
