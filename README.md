@@ -129,9 +129,6 @@ Form validation is handled using React Hook Form. Error messages are displayed f
 # .env
 # The base URL for your API
 NEXT_PUBLIC_API_BASE_URL=https://todo-app-api-ochre.vercel.app
-
-# Other environment-specific variables can be added here
-# For example, if you have a secret key or other API endpoints
 ```
 
 ## Screenshots
