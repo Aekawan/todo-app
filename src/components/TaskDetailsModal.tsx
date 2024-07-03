@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import TaskIcon from './TaskIcon';
 import { formatDate } from '../utils/date';
+import { Task } from '@/types/task';
 
 Modal.setAppElement('#__next');
 
 interface TaskDetailsModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  task: any;
-  onEdit: (task: any) => void;
+  task: Task;
+  onEdit: (task: Task) => void;
   onDelete: (taskId: string) => void;
 }
 
@@ -44,14 +45,10 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({ isOpen, onRequestCl
                 icon={task.icon}
               />
             </div>
-            <h2 className="text-2xl font-semibold text-center mb-4">{task.name}</h2>
+            <h2 className="text-2xl font-semibold text-center mb-4">{task.title}</h2>
             <div className="text-center mb-4">
               <span className="font-semibold">{formatDate(task.date)}</span>
               <span className="ml-2 text-gray-500">{task.time}</span>
-            </div>
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold">Title</h3>
-              <p className="mt-1 text-gray-700">{task.title}</p>
             </div>
 
             <div className="mb-4">

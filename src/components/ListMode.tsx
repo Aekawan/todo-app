@@ -1,10 +1,11 @@
 import React from 'react';
 import TaskIcon from './TaskIcon';
 import { formatDate } from '../utils/date';
+import { Task } from '@/types/task';
 
 const ListMode = ({ onOpenDetail, tasks = [] }: {
-  onOpenDetail: (task: any) => void;
-  tasks: any[];
+  onOpenDetail: (task: Task) => void;
+  tasks: Task[];
 }) => {
   return (
     <ul className="flex flex-col gap-4 pb-40">
