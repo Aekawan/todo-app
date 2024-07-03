@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
+import Link from 'next/link';
 
 type CreateUserForm = {
   username: string;
@@ -62,6 +63,9 @@ const SignUpForm: React.FC = () => {
           {isSubmitting ? 'Loading...' : 'Sign Up'}
         </button>
       </form>
+      <div className="flex mt-4 justify-center text-blue-500 hover:text-blue-600">
+        <Link href="/login">Login</Link>
+      </div>
     </div>
   );
 };
