@@ -8,6 +8,7 @@ This project demonstrates how to create a Todo application with authentication u
 - Demo Link: <https://todo-app-lime-five.vercel.app>
 - Username: admin
 - Password: password
+- or Create an account at <https://todo-app-lime-five.vercel.app/signup>.
 
 <img src="https://raw.githubusercontent.com/Aekawan/todo-app/main/screenshot/2.png?raw=true" alt="ToDo" width="300"/>
 
@@ -97,9 +98,11 @@ Request body: { "title": "Update todo", "description": "Update new description",
 
 ## Authentication
 
-Create an account at <https://todo-app-api-ochre.vercel.app/users>.
+1. You can create an account by visiting <https://todo-app-lime-five.vercel.app/signup>.
 
-To create an account using the provided API via curl, you can use the following command. Replace username and password with the actual credentials you want to use.
+   **OR**
+
+   You can also create an account using the provided API via `curl`. Replace `username` and `password` with the actual credentials you want to use:
 
 ```bash
 curl -X POST https://todo-app-api-ochre.vercel.app/users \
