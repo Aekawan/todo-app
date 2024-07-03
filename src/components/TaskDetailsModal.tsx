@@ -89,7 +89,7 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({ isOpen, onRequestCl
       <Modal
         isOpen={isDeleteConfirmOpen}
         onRequestClose={() => setIsDeleteConfirmOpen(false)}
-        className="fixed top-1/3 left-[10%] right-[10%] bottom-1/3 bg-white shadow-lg p-4 overflow-y-auto w-[80%]"
+        className="fixed top-1/3 sm:left-[30%] sm:right-[30%] left-[10%] right-[10%] bottom-1/3 bg-white shadow-lg p-4 overflow-y-auto w-[80%] sm:w-[40%]"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50"
         contentLabel="Confirm Delete"
       >

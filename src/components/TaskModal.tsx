@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaShoppingBasket, FaBasketballBall, FaTree, FaGift, FaDumbbell, FaMapMarkerAlt } from 'react-icons/fa';
-import TaskIcon from './TaskIcon';
-import { createTodo } from '@/services/api';
 import { toast } from 'react-toastify';
 import { useTask } from '@/hooks/useTask';
 import { dateToInputDate } from '../utils/date';
 import { Task } from '@/types/task';
+import TaskIcon from './TaskIcon';
 
 Modal.setAppElement('#__next');
 
@@ -27,17 +26,11 @@ interface TaskModalProps {
   task?: Task | null;
 }
 
-const TaskModal: React.FC<TaskModalProps> = ({
-  isOpen,
-  onFail,
-  onSuccess,
-  task
-}) => {
+const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onFail, onSuccess, task }) => {
   const { register, handleSubmit, reset, formState: { errors }, setValue, clearErrors } = useForm<Task>();
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const { addTask, editTask } = useTask();
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     if (task) {
@@ -48,12 +41,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
         description: task.description,
         date: dateToInputDate(task.date),
         time: task.time,
-      })
+      });
     } else {
       setSelectedIcon(null);
       reset();
     }
-  }, [isOpen, task, setValue, reset]);
+  }, [isOpen, task, reset]);
 
   useEffect(() => {
     if (selectedIcon) {
@@ -62,25 +55,20 @@ const TaskModal: React.FC<TaskModalProps> = ({
     }
   }, [selectedIcon, setValue, clearErrors]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit: SubmitHandler<Task> = async (data) => {
     setIsSubmitting(true);
     try {
       if (task) {
-        await editTask({
-          _id: task.id,
-          ...data,
-        })
-        toast.success("Task updated successfully.")
+        await editTask({ _id: task.id, ...data });
+        toast.success("Task updated successfully.");
       } else {
-        await addTask({
-          ...data,
-        })
-        toast.success("Task created successfully.")
+        await addTask({ ...data });
+        toast.success("Task created successfully.");
       }
       onSuccess();
     } catch (error) {
-      toast.error("Failed to create task, please try again.")
-      onFail()
+      toast.error("Failed to create task, please try again.");
+      onFail();
     } finally {
       reset();
       setIsSubmitting(false);
@@ -159,6 +147,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
         </div>
         <button
           type="submit"
+          disabled={isSubmitting}
           className="bg-gradient-to-r mt-4 from-blue-400 to-blue-600 text-white p-4 rounded-full w-full"
         >
           {isSubmitting ? 'Loading...' : buttonText}

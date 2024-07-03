@@ -1,34 +1,39 @@
-import React, { use } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { login } from '../services/api';
-import nookies from 'nookies';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/hooks/useAuth';
+import { LoginForm } from '@/types/loginForm';
+
+const ERROR_MESSAGES_ALERT = {
+  loginField: 'Login failed, please try again.',
+  loginSuccess: 'Login success.',
+}
 
 const AuthForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
   const router = useRouter();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const { goLogin } = useAuth();
 
-  const onSubmit = async (data: any) => {
-    setLoading(true);
-    try {
-      const isSuccess = await goLogin(data.username, data.password);
-      if (isSuccess) {
-        toast.success("Login success.")
-        router.push('/todos');
-      } else {
-        toast.error("Login failed, please try again.")
-      }
-    } catch (error) {
-      toast.error("Login failed, please try again.")
-      console.error('Login failed', error);
-    } finally {
-      setLoading(false);
+const onSubmit: SubmitHandler<LoginForm>  = async (data) => {
+  setLoading(true);
+
+  try {
+    const isSuccess = await goLogin(data.username, data.password);
+    if (isSuccess) {
+      toast.success(ERROR_MESSAGES_ALERT.loginSuccess);
+      router.push('/todos');
+    } else {
+      toast.error(ERROR_MESSAGES_ALERT.loginField);
     }
-  };
+  } catch (error) {
+    toast.error(ERROR_MESSAGES_ALERT.loginField);
+    console.error(ERROR_MESSAGES_ALERT.loginField, error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -36,8 +41,9 @@ const AuthForm: React.FC = () => {
         <label className="block text-sm font-medium text-gray-700">Username</label>
         <input
           type="text"
+          defaultValue="admin"
           {...register('username', { required: 'Username is required' })}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-full shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
         {errors.username && <p className="mt-2 text-sm text-red-600">{errors.username.message as string}</p>}
       </div>
@@ -45,8 +51,9 @@ const AuthForm: React.FC = () => {
         <label className="block text-sm font-medium text-gray-700">Password</label>
         <input
           type="password"
+          defaultValue="password"
           {...register('password', { required: 'Password is required' })}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-full shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
         {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password.message as string}</p>}
       </div>
@@ -54,10 +61,17 @@ const AuthForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="bg-gradient-to-r mt-2 from-blue-400 to-blue-600 text-white p-3 rounded-full w-full font-bold"
         >
           {loading ? 'Loading...' : 'Login'}
         </button>
+      </div>
+      <div className="border-1 border-blue-100 p-4">
+        Note: You can login with <br />
+        <div className="mt-2">
+          Username: <strong>admin</strong> <br />
+          Password: <strong>password</strong>
+        </div>
       </div>
     </form>
   );
