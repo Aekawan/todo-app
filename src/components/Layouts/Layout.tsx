@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
   return (
-    <div className="max-h-screen h-screen overflow-scroll flex flex-col bg-custom-gradient">
+    <div className="min-h-screen flex flex-col bg-custom-gradient">
       <Header onOpenSidebar={() => setIsOpenSidebar(true)} />
       <Sidebar
         isOpen={isOpenSidebar}

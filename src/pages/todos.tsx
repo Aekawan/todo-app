@@ -37,7 +37,7 @@ const TodoPage: NextPage<TodosPageProps> = (): React.ReactElement => {
   };
 
   return (
-    <div className="min-h-screen flex p-4">
+    <div className="min-screen overflow-scroll flex p-4">
       <Head>
         <title>Todo List - Manage Your Tasks</title>
         <meta name="description" content="Manage your todos efficiently with our Todo List app. Stay organized and increase productivity with easy-to-use task management features." />
