@@ -11,8 +11,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
-    if (!config.url?.includes('/auth/login')) {
+  (config: any) => {
+    if (!['/auth/login', '/users'].includes(config.url)) {
       const token = nookies.get(null).token;
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
@@ -24,6 +24,11 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export const createUser = async (username: string, password: string) => {
+  const response = await api.post('/users', { username, password });
+  return response.data;
+}
 
 export const login = async (username: string, password: string) => {
   const response = await api.post('/auth/login', { username, password });

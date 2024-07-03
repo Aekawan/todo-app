@@ -61,7 +61,7 @@ const TodoPage: NextPage<TodosPageProps> = (): React.ReactElement => {
         <link rel="canonical" href="https://yourdomain.com/todos" />
       </Head>
 
-      <main className="w-full max-w-2xl m-auto">
+      <main className="w-full max-w-2xl mx-auto">
         <ListMode
           onOpenDetail={handleOpenDetail}
           tasks={tasks}

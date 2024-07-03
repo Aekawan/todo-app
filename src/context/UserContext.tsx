@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
-import { getUserProfile, login } from '@/services/api';
+import { createUser, getUserProfile, login } from '@/services/api';
 
 export interface UserContextProps {
   user: any;
   token: string | null;
   goLogin: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
+  signUp: (username: string, password: string) => Promise<boolean>;
   fetchProfile: () => void;
 }
 
@@ -27,6 +28,15 @@ export const UserProvider = ({ children }: {
       fetchProfile();
     }
   }, []);
+
+  const signUp = async (username: string, password: string) => {
+    try {
+      await createUser(username, password);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 
   const goLogin = async (username: string, password: string) => {
     try {
@@ -67,7 +77,7 @@ export const UserProvider = ({ children }: {
   };
 
   return (
-    <UserContext.Provider value={{ user, token, goLogin, logout, fetchProfile }}>
+    <UserContext.Provider value={{ user, token, signUp, goLogin, logout, fetchProfile }}>
       {children}
     </UserContext.Provider>
   );

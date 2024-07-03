@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/hooks/useAuth';
 import { LoginForm } from '@/types/loginForm';
+import Link from 'next/link';
 
 const ERROR_MESSAGES_ALERT = {
   loginField: 'Login failed, please try again.',
@@ -65,6 +66,9 @@ const onSubmit: SubmitHandler<LoginForm>  = async (data) => {
         >
           {loading ? 'Loading...' : 'Login'}
         </button>
+      </div>
+      <div className="flex justify-center text-blue-500 hover:text-blue-600">
+        <Link href="/signup">Sign Up</Link>
       </div>
       <div className="border-1 border-blue-100 p-4">
         Note: You can login with <br />
