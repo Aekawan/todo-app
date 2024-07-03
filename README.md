@@ -50,6 +50,20 @@ Ensure you have the following installed on your system:
    yarn install
    ```
 
+3. Copy the example environment file to .env:
+
+```bash
+cp .env.example .env
+
+```
+
+4. Update the .env file with your specific configuration:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=https://todo-app-api-ochre.vercel.app
+
+```
+
 ## Running the App
 
 1. Start the development server:
